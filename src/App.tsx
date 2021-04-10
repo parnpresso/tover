@@ -28,7 +28,8 @@ const App = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="mt-12 text-gray-400 font-bold text-lg">Tover : Trello card cover generator</div>
+      <div className="font-bold text-4xl mt-12 mb-1">Tover.</div>
+      <div className="text-gray-400 font-bold text-lg">Trello card cover generator</div>
 
       <div className="mt-20 w-64 lg:w-80 shadow-lg rounded-md mb-12">
         <div className="flex items-center justify-center h-20 rounded-tl-md rounded-tr-md" style={{ backgroundColor: cardCoverColor }}>
@@ -39,7 +40,7 @@ const App = () => {
         </div>
       </div>
 
-      <div className="flex flex-col mb-4">
+      <div className="flex flex-col mb-20">
         <input
           className="p-2 w-48 rounded-md border-2 border-black text-black focus:outline-none mb-2"
           type="text"
@@ -62,11 +63,23 @@ const App = () => {
         </button>
 
         <button
-          className="p-2 w-48 rounded-md border-2 border-black text-black font-bold focus:outline-none"
+          className="p-2 w-48 rounded-md border-2 border-black text-sm text-black font-bold focus:outline-none mb-2"
           onClick={copyToClipboard}
         >
           {copyButtonMessage}
         </button>
+        <p className="flex justify-center text-sm text-gray-500">
+          And paste it in a&nbsp;<span className="underline cursor-pointer" onClick={()=> window.open('https://trello.com', '_blank')}>Trello card</span>.
+        </p>
+      </div>
+
+      <div className="">
+        <p
+          className="text-sm text-gray-500 cursor-pointer hover:underline"
+          onClick={()=> window.open('https://github.com/parnpresso/tover', '_blank')}
+        >
+          github.com/parnpresso/tover
+        </p>
       </div>
     </div>
   );

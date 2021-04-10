@@ -14,7 +14,7 @@ const App = () => {
   }
 
   const downloadCover = () => {
-    console.log('Download')
+    console.log('Download');
   }
 
   return (

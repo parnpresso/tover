@@ -27,6 +27,8 @@ const App = () => {
   }
 
   const copyToClipboard = async () => {
+    fetch('copy-a-image');
+
     const trelloCoverNode: HTMLElement | null = document.getElementById('trello-cover');
     if (trelloCoverNode) {
       const rawImageData = await toBlob(trelloCoverNode);

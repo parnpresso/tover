@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
 
+import { toBlob } from 'html-to-image';
+
+declare class ClipboardItem {
+  constructor(data: { [mimeType: string]: Blob });
+}
+
 const App = () => {
   const [cardCoverColor, setCardCoverColor] = useState<string>('#000000');
   const [cardTextColor, setCardTextColor] = useState<string>('#000000');
@@ -20,8 +26,16 @@ const App = () => {
     else setCardTextColor('#000000');
   }
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText('test');
+  const copyToClipboard = async () => {
+    const trelloCoverNode: HTMLElement | null = document.getElementById('trello-cover');
+    if (trelloCoverNode) {
+      const rawImageData = await toBlob(trelloCoverNode);
+      if (rawImageData) {
+        const customNavigator = navigator.clipboard as any;
+        customNavigator.write([new ClipboardItem({'image/png' : rawImageData})]);
+      }
+    }
+
     setCopyButtonMessage('Image copied!');
     setTimeout(() => setCopyButtonMessage('Copy'), 2000);
   }
@@ -32,7 +46,7 @@ const App = () => {
       <div className="text-gray-400 font-bold text-lg">Trello card cover generator</div>
 
       <div className="mt-20 w-64 lg:w-80 shadow-lg rounded-md mb-12">
-        <div className="flex items-center justify-center h-20 rounded-tl-md rounded-tr-md" style={{ backgroundColor: cardCoverColor }}>
+        <div id="trello-cover" className="flex items-center justify-center h-20 rounded-tl-md rounded-tr-md" style={{ backgroundColor: cardCoverColor }}>
           <h1 className="text-4xl font-bold" style={{ color: cardTextColor }}>{ cardMessage }</h1>
         </div>
         <div className="p-2 pb-4 rounded-bl-md rounded-br-md">
